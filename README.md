@@ -27,8 +27,7 @@ One of the variants of PiArm has a LCD mounted on its chest. You can configure t
 **Steps for LCD configuration**
 1. Open terminal and go to the PiArm directory and type
 ```cd LCD-show
-chmod +x LCD4-show 
-chmode +x LCD-hdmi
+chmod +x LCD4-show LCD-hdmi
 ```
 
 2. Now you would require to rotate your screen to the viuewing angle. Write
