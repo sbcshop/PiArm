@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=PiArm
+Comment=PiArm Controlling Software
+Exec=/usr/bin/python3 /home/pi/PiArm/controlGUI.py
+Icon=/home/pi/PiArm/Images/piarm.png
+Terminal=true
