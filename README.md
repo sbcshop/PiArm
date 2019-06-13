@@ -49,13 +49,13 @@ If you wish to return back to the HDMI, enter
 
 **Servo Config**
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=QBY8_OcnnSg" target="_blank"><img src="http://sb-components.co.uk/assets/images/portfolio/Capture3.png" alt="PiArm servo config tutorial video" width="800" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=QBY8_OcnnSg" target="_blank"><img src="https://cdn.shopify.com/s/files/1/1217/2104/files/piarm-banner_1024x1024.jpg?v=1556623276" alt="PiArm servo config tutorial video" width="800" /></a>
 
 
 **PiArm Control Software**
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Spr0D8LX27g" target="_blank">
-<img src="http://sb-components.co.uk/assets/images/portfolio/Capture4.png" alt="PiArm control tutorial video" width="800" />
+<img src="https://cdn.shopify.com/s/files/1/1217/2104/files/vlcsnap-2019-04-30-15h44m01s9_1024x1024.png?v=1556619752" alt="PiArm control tutorial video" width="800" />
 </a>
 
 
