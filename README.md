@@ -43,7 +43,7 @@ If you wish to return back to the HDMI, enter
 
 ```./LCD-hdmi```
 
-<img src="http://sb-components.co.uk/assets/images/portfolio/Capture2.png" width="800">
+<img src="https://sb-components.co.uk/assets/images/bg/terminal.png" width="800">
 
 # PiArm Tutorial links
 
