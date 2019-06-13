@@ -62,4 +62,4 @@ If you wish to return back to the HDMI, enter
 
 # Buy Link
 
-SB Shop <a href="https://shop.sb-components.co.uk/products/piarm-the-diy-robotic-arm-for-raspberry-pi" target="_blank">https://shop.sb-components.co.uk/search?type=product&q=PiArm</a>
+SB Shop <a href="https://shop.sb-components.co.uk/products/piarm-the-diy-robotic-arm-for-raspberry-pi" target="_blank">https://shop.sb-components.co.uk/products/piarm-the-diy-robotic-arm-for-raspberry-pi</a>
