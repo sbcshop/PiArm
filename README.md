@@ -33,7 +33,9 @@ One of the variants of PiArm has a LCD mounted on its chest. You can configure t
 
 2. Now you would require to rotate your screen to the viuewing angle. Write
 
-   ```./LCD4-show 180```
+   ```
+   ./LCD4-show 180
+   ```
 
 After you enter this command, your system will ask you for reboot. Enter 'y' and reboot your Pi.
 
@@ -43,7 +45,9 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 
    If you wish to return back to the HDMI, enter
 
-     ```./LCD-hdmi```
+     ```
+     ./LCD-hdmi
+     ```
 
 <img src="https://sb-components.co.uk/assets/images/bg/terminal.png" width="800">
 
