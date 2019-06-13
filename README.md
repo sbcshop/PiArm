@@ -47,6 +47,7 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 
      ```
      ./LCD-hdmi
+     
      ```
 
 <img src="https://sb-components.co.uk/assets/images/bg/terminal.png" width="800">
