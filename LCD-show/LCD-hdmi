@@ -1,0 +1,9 @@
+#!/bin/sh
+
+sudo cp -rf ./usr/share/X11/xorg.conf.d/99-fbturbo.conf-HDMI  /usr/share/X11/xorg.conf.d/99-fbturbo.conf
+sudo cp ./boot/config-nomal.txt /boot/config.txt
+sudo cp ./cmdline.txt /boot/
+sudo cp ./inittab /etc/
+echo "HDMI Module Copied"
+
+sudo reboot
