@@ -12,8 +12,7 @@ PiArm is a Raspberry Pi based Robotic Arm with 6 DOF
 
 3. Go to directory 'PiArm' and run the command to change the permissions of 'configGUI' and 'controlGUI' python files:
    ```
-   sudo chmod +x configGUI.py
-   sudo chmod +x controlGUI.py
+   sudo chmod +x configGUI.py controlGUI.py
    ```
    You are now able to run these two softwares for your PiArm. The control software is to control the movements of PiArm, while the config software is to config the servo motor.
 
