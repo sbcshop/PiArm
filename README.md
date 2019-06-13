@@ -1,5 +1,6 @@
 # PiArm
-PiArm is a Raspberry Pi based Robotic Arm with 6 DOF
+
+PiArm is a Raspberry Pi based DIY robotic arm outfitted with 6-axis digital computerized servo motors and 360 degrees of rotation liberation designed and developed for kids, makers, and techies.
 
 **Steps for PiArm software installation:**
 1. Open Terminal and download the code by writing:
@@ -45,10 +46,7 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 
    If you wish to return back to the HDMI, enter
 
-     ```
-     ./LCD-hdmi
-     
-     ```
+   ```./LCD-hdmi```
 
 <img src="https://sb-components.co.uk/assets/images/bg/terminal.png" width="800">
 
