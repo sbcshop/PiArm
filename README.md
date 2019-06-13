@@ -17,7 +17,7 @@ PiArm is a Raspberry Pi based Robotic Arm with 6 DOF
 4. Click on the 'Servo Config' shortcut icon to configure your motor, or if you wish to give movements to PiArm or control it, click on the 'PiArm' shortcut icon.
 
 5. You can also move these 2 icons to your desktop for your convinience.
-<img src="http://sb-components.co.uk/assets/images/portfolio/Capture1.png" width="800">
+<img src="https://sb-components.co.uk/assets/images/bg/desk.png" width="800">
 
 # PiArm with LCD
 One of the variants of PiArm has a LCD mounted on its chest. You can configure this screen using few simple steps.
