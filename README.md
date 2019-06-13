@@ -54,7 +54,7 @@ If you wish to return back to the HDMI, enter
 
 **PiArm Control Software**
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Spr0D8LX27g" target="_blank">
+<a href="https://www.youtube.com/watch?v=jwRVcIw8pus" target="_blank">
 <img src="https://cdn.shopify.com/s/files/1/1217/2104/files/vlcsnap-2019-04-30-15h44m01s9_1024x1024.png?v=1556619752" alt="PiArm control tutorial video" width="800" />
 </a>
 
