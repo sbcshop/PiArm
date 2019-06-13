@@ -3,6 +3,7 @@ PiArm is a Raspberry Pi based Robotic Arm with 6 DOF
 
 **Steps for PiArm software installation:**
 1. Open Terminal and download the code by writing:
+
 ```git clone https://github.com/sbcshop/PiArm.git```
 
 2. Your code will be downloaded to '/home/pi' directory. Use 'ls' command to check the list of directories.
