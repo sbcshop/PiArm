@@ -7,23 +7,22 @@ http://sb-components.co.uk
 '''
 
 import piarm
-import logging
 import meter
+import shutil
+import logging
 import threading
-import time
 import webbrowser
-from tkinter import font
-from os import path, system
 import tkinter as tk
-
+from tkinter import font
 from tkinter import messagebox
+from os import path, system
 from serial.tools import list_ports
 
 ##########################  MainApp  ###########################################
 class MainApp(piarm.PiArm, tk.Tk):
-    """
+    '''
     This is a class for Creating Frames and Buttons for left and top frame
-    """
+    '''
     def __init__(self, *args, **kwargs):
         global logo, img
     
@@ -40,11 +39,13 @@ class MainApp(piarm.PiArm, tk.Tk):
         self.geometry("%dx%d+%d+%d" %(self.app_width,self.app_height,self.xpos,
                                       self.ypos))
         self.title(" Servo Configuration")
-        
+        if not self.screen_width > self.app_width:
+            self.attributes('-fullscreen', True)
+            
         self.config(bg="gray85")
         
-        img = tk.PhotoImage(file= path + '/Images/settings.png')
-        logo = tk.PhotoImage(file= path + '/Images/sblogo.png')
+        img = tk.PhotoImage(file= Root_Dir + '/Images/settings.png')
+        logo = tk.PhotoImage(file= Root_Dir + '/Images/sblogo.png')
         
         self.top_frame=tk.Frame(self,height=int(self.app_height/15),bd=2,
                                 width=self.app_width,bg="gray85")
@@ -83,19 +84,30 @@ class MainApp(piarm.PiArm, tk.Tk):
         labelName = tk.Label(self, text="PiArm", bg="gray85",fg='SteelBlue', font=("Helvetica", 20))
         labelName.place(x=60,y=0)
 
+    def close_Robot(self):
+        '''
+        This function delete the temp folder and close PiArm
+        '''
+        try:
+            shutil.rmtree(Root_Dir + '/.Temp')
+        except FileNotFoundError:
+            pass
+        self.log.info('PiArm Closed Successfully..!!')
+        self.destroy()
+
     def operateButton(self):
-        """
+        '''
         This function raise and sunk Operate button on top frame
-        """
+        '''
         self.operate_button.config(relief="sunken", fg="SteelBlue2")
         self.about_button.config(relief="raised", fg="black")
         self.param_button.config(relief="raised", fg="black")
         self.show_frame("OperateFrame")
 
     def parameterButton(self):
-        """
+        '''
         This function raise and sunk Parameter button on top frame
-        """
+        '''
         self.operate_button.config(relief="raised", fg="black")
         self.about_button.config(relief="raised", fg="black")
         self.param_button.config(relief="sunken", fg="turquoise4")
@@ -105,48 +117,58 @@ class MainApp(piarm.PiArm, tk.Tk):
         self.show_frame("ParameterFrame")
 
     def aboutButton(self):
-        """
+        '''
         This function raise and sunk About Us button on top frame
-        """
+        '''
         self.operate_button.config(relief="raised", fg="black")
         self.param_button.config(relief="raised", fg="black")
         self.about_button.config(relief="sunken", fg="SteelBlue2")
         self.show_frame("AboutFrame")
 
     def manualButton(self):
-        system("xdg-open " + path + "/Manuals/Servo_Config.pdf")
+        '''
+        This function will open a pdf file in pdf reader
+        '''
+        system("xdg-open " + Root_Dir + "/Manuals/Servo_Config.pdf")
         
 
     def topframe_contents(self):
-        """
+        '''
         This function creates the top frame buttons
-        """
+        '''
+        self.closeButton = tk.Button(self.top_frame, text='Close',fg="black",
+                                     bg="gray90",font = self.label_font, bd=2,
+                                     highlightthickness=0,
+                                     command=self.close_Robot)
+        self.closeButton.pack(padx=30,side="right")
+
         self.manual_button=tk.Button(self.top_frame,text="Manual",fg="black",
                                bg="gray90",font = self.label_font,bd=2,
                                highlightthickness=0, command = self.manualButton)
-        self.manual_button.pack(padx=30,side="right")
+        self.manual_button.pack(padx = 20, side="right")
 
         self.about_button=tk.Button(self.top_frame,text="About Us",fg="black",
                                bg="gray90",font = self.label_font,bd=2,
                                highlightthickness=0,command=self.aboutButton)
-        self.about_button.pack(padx=30,side="right")
+        self.about_button.pack(padx = 20,side="right")
         
         self.param_button=tk.Button(self.top_frame,text="Parameters",fg="black",
-                                    bg="gray90",font = self.label_font,bd=2,
+                                    bg="gray90",font = self.label_font, bd=2,
                                     highlightthickness=0,
                                     command=self.parameterButton)
-        self.param_button.pack(padx=30,side="right")
+        self.param_button.pack(padx = 20,side="right")
 
-        self.operate_button=tk.Button(self.top_frame,text="Operation",fg="black",
-                                 bg="gray90",font = self.label_font,bd=2,
+        self.operate_button=tk.Button(self.top_frame,text="Operation", fg="black",
+                                 bg="gray90",font = self.label_font, bd=2,
                                  highlightthickness=0,
                                  command=self.operateButton)
-        self.operate_button.pack(padx=30,side="right")
+        self.operate_button.pack(padx=10,side="right")
+
         
     def leftframe_contents(self):
-        """
+        '''
         This function creates the left frame widgets
-        """
+        '''
         global logo
         
         serial_box=tk.Canvas(self.left_frame,width=200,
@@ -194,9 +216,9 @@ class MainApp(piarm.PiArm, tk.Tk):
         label.place(x=0,y=400)
 
     def connectPort(self):
-        """
+        '''
         This function connects the serial port
-        """
+        '''
         if self.connect_button.cget('text') == 'Connect' and self.com_entry.get():
             robot.connect("/dev/"+self.com_entry.get())
             if robot.alive:
@@ -220,29 +242,29 @@ class MainApp(piarm.PiArm, tk.Tk):
             errorLabel.after(2000, errorLabel.grid_forget)
 
     def show_frame(self,frame_name):
-        """
+        '''
         This function raise the frame on Top
         Args:
             frame_name: Name of the Frame
-        """
+        '''
         frame=self.frames[frame_name]
         frame.tkraise()
 
     def get_frame(self, frame_name):
-        """
+        '''
         This function returns the address of given frame
         Args:
             frame_name: Name of the Frame
         Return:
             Address of frame_name
-        """
+        '''
         return self.frames[frame_name]
         
 ################################### Operate ####################################
 class OperateFrame(tk.Frame):
-    """
+    '''
     This is a class for creating widgets for Operation frame
-    """
+    '''
     def __init__(self,parent,controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -305,8 +327,9 @@ class OperateFrame(tk.Frame):
         time_label.grid(row=1,column=0)
 
         time_vcmd = (self.register(self.time_validate),'%P')
-        time_entry=tk.Entry(servo_box, validate='key', validatecommand = time_vcmd, width=6,font=self.controller.label_font,
-                                textvariable=self.timeScaleVar)
+        time_entry=tk.Entry(servo_box, validate='key', validatecommand = time_vcmd, 
+                            width=6, font=self.controller.label_font,
+                            textvariable=self.timeScaleVar)
         time_entry.grid(row=2,column=0)
 
         time_scale=tk.Scale(servo_box,orient="horizontal",bg="white",from_=0, to=3000,
@@ -373,6 +396,9 @@ class OperateFrame(tk.Frame):
         self.tempScale.grid(row=3,column=0, columnspan=2, pady=20,padx=20,sticky="nsew")
 
     def id_validate(self, new_value):
+        '''
+        This function will validate servo ID
+        '''
         try:
             if new_value == '':
                 return True
@@ -386,6 +412,9 @@ class OperateFrame(tk.Frame):
             return False
 
     def time_validate(self, new_value):
+        '''
+        This function will validate Time range
+        '''
         try:
             if new_value == '':
                 return True
@@ -399,6 +428,9 @@ class OperateFrame(tk.Frame):
             return False
     
     def pos_validate(self, new_value):
+        '''
+        This function will validate Position for servo
+        '''
         try:
             if new_value == '':
                 return True
@@ -412,9 +444,9 @@ class OperateFrame(tk.Frame):
             return False
         
     def writeServo(self):
-        """
+        '''
         This function write time and position slider values to servo motor
-        """
+        '''
         try:
             if robot.alive:
                 if self.id_entry.get() == '':
@@ -429,9 +461,9 @@ class OperateFrame(tk.Frame):
             messagebox.showerror("Value Error", "Incorrect Entry Value")
 
     def servoTorque(self):
-        """
+        '''
         This function enable and disbale servo motor torque
-        """
+        '''
         if robot.alive:
             if self.motorButton.cget('text') == 'ON' and self.id_entry.get():
                 self.motorButton.config(relief="sunken", bg="tomato", text="OFF")
@@ -448,18 +480,18 @@ class OperateFrame(tk.Frame):
             messagebox.showerror("Comm Error", "Comm Port is not Connected..!!")
 
     def updatePosValue(self, value):
-        """
+        '''
         This function write time and position slider values to servo motor
-        """
+        '''
         if robot.alive:
             if self.id_entry.get() != '':
                 robot.servoWrite(int(self.id_entry.get()), int(self.posScaleVar.get()),
                                      int(self.timeScaleVar.get()))
     
     def servoContinousRead(self):
-        """
+        '''
         This function create thread to read params from servo motor
-        """
+        '''
         if robot.alive:
             if self.readServo_button.cget('text') == 'Read' and self.id_entry.get():
                 self.readServo_button.config(relief="sunken", text="Stop")
@@ -482,9 +514,9 @@ class OperateFrame(tk.Frame):
             
 
     def _continousRead(self):
-        """
+        '''
         This thread read params from servo motor & display on gauge
-        """
+        '''
         try:
             while self.readFlag:
                 response = robot.positionRead(int(self.id_entry.get()))
@@ -512,9 +544,9 @@ class OperateFrame(tk.Frame):
         
 ################################### Parameters #################################
 class ParameterFrame(tk.Frame):
-    """
+    '''
     This is a class for Creating widgets for Paramter frame
-    """
+    '''
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -527,8 +559,8 @@ class ParameterFrame(tk.Frame):
         self.led_textlabel = tk.StringVar()
         self.led_textlabel.set('Press Button to switch Off\nServo Led')
 
-        self.image_LedOff = tk.PhotoImage(file = path + '/Images/ledOff.png')
-        self.image_LedOn = tk.PhotoImage(file = path + '/Images/ledOn.png')
+        self.image_LedOff = tk.PhotoImage(file = Root_Dir + '/Images/ledOff.png')
+        self.image_LedOn = tk.PhotoImage(file = Root_Dir + '/Images/ledOn.png')
                 
         id_box=tk.Canvas(self,width=int(2*(self.controller.app_width/9)),
                          height=int(self.controller.app_height/6),bg="white",bd=2)
@@ -684,6 +716,9 @@ class ParameterFrame(tk.Frame):
         default_button.grid(row=3, column=2, pady=10)
 
     def id_validate(self, new_value):
+        '''
+        This function validate the Servo Id
+        '''
         try:
             if new_value == '' or new_value == None:
                 return True
@@ -697,6 +732,9 @@ class ParameterFrame(tk.Frame):
             return False
 
     def deviation_validate(self, new_value):
+        '''
+        This function will validate the Deviation range
+        '''
         try:
             if new_value == '' or  new_value == '-':
                 return True
@@ -711,14 +749,17 @@ class ParameterFrame(tk.Frame):
 
 
     def updateDeviation(self, value):
+        '''
+        This function will write the deviation to the motor
+        '''
         if robot.alive:
             if self.id_entry.get():
                 robot.adjustAngleOffset(self.ID_Var.get()), int(self.offset_Var.get())
 
     def readParameters(self):
-        """
+        '''
         This function read all the parameters from servo and display it
-        """
+        '''
         try:
             if robot.alive:
                 response = robot.readID()
@@ -761,9 +802,9 @@ class ParameterFrame(tk.Frame):
             messagebox.showerror("Read Error", "Data Read Error..!!")
 
     def writeParameters(self):
-        """
+        '''
         This function write all the parameters to servo motor
-        """
+        '''
         if robot.alive:
             if self.id_entry.get():
                 robot.writeID(self.ID_Var.get())
@@ -779,11 +820,11 @@ class ParameterFrame(tk.Frame):
             messagebox.showerror("Comm Error", "Comm Port is not Connected..!!")
 
     def writeLED(self):
-        """
+        '''
         This function enable and disbale servo motor LED
         Write 0 for LED ON
         Write 1 for LED OFF
-        """
+        '''
         if robot.alive:
             if self.led_button.cget('text') == 'OFF' and self.id_entry.get():
                 self.led_textlabel.set('Press Button to turn Off\nServo Led')
@@ -804,9 +845,9 @@ class ParameterFrame(tk.Frame):
             messagebox.showerror("Comm Error", "Comm Port is not Connected..!!")
 
     def defaultWrite(self):
-        """
+        '''
         This function set default parameters of servo
-        """
+        '''
         if robot.alive:
             if self.id_entry.get():
                 robot.adjustAngleOffset(self.ID_Var.get())
@@ -818,9 +859,9 @@ class ParameterFrame(tk.Frame):
         
 ################################### About Us ###################################
 class AboutFrame(tk.Frame):
-    """
+    '''
     This is a class for Creating widgets for About Us frame
-    """
+    '''
     def __init__(self,parent,controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -866,20 +907,28 @@ class AboutFrame(tk.Frame):
         github.grid(row=8, column=0, padx=(180, 0))
 
     def mainWebsite(self):
+        '''
+        Open browser with sb-components website
+        '''
         webbrowser.open('https://sb-components.co.uk')
 
     def shopWebsite(self):
+        '''
+        Open website with sb-components shop's website
+        '''
         webbrowser.open('https://shop.sb-components.co.uk')
 
     def github(self):
+        '''
+        open website with github code for PiArm
+        '''
         webbrowser.open('https://github.com/sbcshop/PiArm')
     
 
-#######################################################################################################        
-#robot = None
+#######################################################################################################
 logo = None
 img = None
-path = path.dirname(path.realpath(__file__))
+Root_Dir = path.dirname(path.realpath(__file__))
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
