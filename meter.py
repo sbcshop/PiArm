@@ -1,15 +1,14 @@
 #! /usr/bin/python3
 
 import tkinter as tk
-from decimal import Decimal
 import cmath
-import sys
-import logging
 import math
-import time
 
 ################################### Initialize #################################
 class Initialize(tk.Frame):
+    '''
+    Initialize Meter frame
+    '''
     def __init__(self, parent, size=100):
         tk.Frame.__init__(self, parent)
         self.size = size
@@ -19,6 +18,9 @@ class Initialize(tk.Frame):
 
 ################################### Dial #######################################
 def draw_dial(canv,x0,y0,degree, t,r):
+    '''
+    this function will draw dial for gauge
+    '''
     xr=x0
     yr=y0
     angle = math.radians(degree)
@@ -45,6 +47,9 @@ def draw_dial(canv,x0,y0,degree, t,r):
 
 ############################### Position Meter #################################
 class PositionMeter(Initialize):
+    '''
+    Draw Postion Meter
+    '''
     def __init__(self, parent,max_value, min_value, size,**options):
         super().__init__(parent, size=size, **options)
 
@@ -60,6 +65,9 @@ class PositionMeter(Initialize):
         self.set_value(initial_value)
 
     def draw_PosMeter(self, divisions=100):
+        '''
+        This function  will draw meter for Position of motor
+        '''
         self.canvas.create_arc(self.size/5, self.size/6, self.size-self.size/6,
                                self.size-self.size/6, style="arc", outline = "red",
                                start=-61, extent=61,width=self.size/10)
@@ -81,6 +89,9 @@ class PositionMeter(Initialize):
                                                fill="black", text='')
         
     def draw_tick(self,divisions=100):
+        '''
+        This function will draw indicator for gauge
+        '''
         inner_tick_radius = int((self.size-self.size/9) * 0.35)
         outer_tick_radius = int((self.size-self.size/9) * 0.45)
         label = 'Position'
@@ -119,6 +130,9 @@ class PositionMeter(Initialize):
                                         text=label)
                 
     def set_value(self, number: (float, int)):
+        '''
+        This function will set position of meter indicator
+        '''
         number = number if number <= self.max_value else self.max_value
         number = number if number > self.min_value else self.min_value
         degree = 30.0 + (number- self.min_value) / (self.max_value - self.min_value) * 300.0
@@ -131,6 +145,9 @@ class PositionMeter(Initialize):
         
 ############################### Voltage Meter ##################################
 class VoltageMeter(Initialize):
+    '''
+    Draw gauge for Voltage
+    '''
     def __init__(self, parent, max_value, min_value, size, **options):
         super().__init__(parent, size=size, **options)
 
@@ -146,6 +163,9 @@ class VoltageMeter(Initialize):
         self.set_value(initial_value)
     
     def draw_VolMeter(self, divisions=100):
+        '''
+        This function will draw meter for voltage
+        '''
         self.canvas.create_arc(self.size/7, self.size/7, self.size-self.size/7,
                                self.size-self.size/7, style="arc",
                                width=self.size/9,start=0, extent=60,
@@ -163,6 +183,9 @@ class VoltageMeter(Initialize):
                                                      'bold'),fill="black", text='')
 
     def draw_tick(self, divisions=100):
+        '''
+        This function will draw indicator for voltage meter
+        '''
         inner_tick_radius = int((self.size-self.size/9) * 0.35)
         outer_tick_radius = int((self.size-self.size/9) * 0.45)
         label = "Voltage"
@@ -203,6 +226,9 @@ class VoltageMeter(Initialize):
                 self.canvas.create_text(x,y, font=("Arial",int(self.size/20)),
                                         fill="black", text=label)
     def set_value(self, number: (float, int)):
+        '''
+        This function will set value for voltage gauge
+        '''
         number = number if number <= self.max_value else self.max_value
         number = number if number > self.min_value else self.min_value
         degree = 90.0 + (number- self.min_value) / (self.max_value - self.min_value) * 180.0

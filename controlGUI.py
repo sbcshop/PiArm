@@ -8,7 +8,6 @@ http://sb-components.co.uk
 
 import piarm
 import logging
-import meter
 import os
 import threading
 import shutil
@@ -16,20 +15,18 @@ import subprocess
 import time
 import re
 import picamera
-import tempfile
 from tkinter import font
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import simpledialog
 from tkinter import filedialog
-from serial.tools import list_ports
 
 
 ##########################  MainApp  ###########################################
 class MainApp(piarm.PiArm, tk.Tk):
-    """
+    '''
     This is a class for Creating Frames and Buttons for left and top frame
-    """
+    '''
     def __init__(self, *args, **kwargs):
         global logo, img
         
@@ -53,10 +50,8 @@ class MainApp(piarm.PiArm, tk.Tk):
         self.geometry("%dx%d+%d+%d" %(self.app_width,self.app_height,self.xpos,
                                       self.ypos))
         self.title("PiArm Controller")
-##        self.title("PiTalk")
         if not self.screen_width > self.app_width:
             self.attributes('-fullscreen', True)
-            #self.config(cursor="none")
             
         self.config(bg="gray85")
 
@@ -76,13 +71,13 @@ class MainApp(piarm.PiArm, tk.Tk):
         self.right_frame=tk.Frame(self.container,bg="gray85")
         self.right_frame.pack(side="left",fill="both",expand=True)
         
-        logo = tk.PhotoImage(file = path + '/Images/sblogo.png')
-        img = tk.PhotoImage(file = path + '/Images/piarm.png')
-        self.camIcon = tk.PhotoImage(file = path + '/Images/camera.png')
-        self.vidIcon = tk.PhotoImage(file = path + '/Images/video.png')
-        self.clickIcon = tk.PhotoImage(file = path + '/Images/click.png')
-        self.homeIcon = tk.PhotoImage(file = path + '/Images/home.png')
-        self.backIcon = tk.PhotoImage(file = path + '/Images/back.png')
+        logo = tk.PhotoImage(file = Root_Dir + '/Images/sblogo.png')
+        img = tk.PhotoImage(file = Root_Dir + '/Images/piarm.png')
+        self.camIcon = tk.PhotoImage(file = Root_Dir + '/Images/camera.png')
+        self.vidIcon = tk.PhotoImage(file = Root_Dir + '/Images/video.png')
+        self.clickIcon = tk.PhotoImage(file = Root_Dir + '/Images/click.png')
+        self.homeIcon = tk.PhotoImage(file = Root_Dir + '/Images/home.png')
+        self.backIcon = tk.PhotoImage(file = Root_Dir + '/Images/back.png')
 
         self.protocol("WM_DELETE_WINDOW", self.close_Robot)
         
@@ -93,14 +88,17 @@ class MainApp(piarm.PiArm, tk.Tk):
         '''
         This function delete the temp folder and close PiArm
         '''
-        shutil.rmtree(path + '/.Temp')
+        try:
+            shutil.rmtree(Root_Dir + '/.Temp')
+        except FileNotFoundError:
+            pass
         self.log.info('PiArm Closed Successfully..!!')
         self.destroy()
 
     def leftFrame_Contents(self):
-        """
+        '''
         This function creates the left frame widgets
-        """
+        '''
         serial_box=tk.Canvas(self.left_frame,width=160,
                              height=110)
         serial_box.grid(row=0, column=0)
@@ -251,9 +249,9 @@ class MainApp(piarm.PiArm, tk.Tk):
 
 
     def connectPort(self):
-        """
+        '''
         This function connects the serial port
-        """
+        '''
         if self.connect_button.cget('text') == 'Open' and self.com_entry.get():
             robot.connect("/dev/"+self.com_entry.get())
             if robot.alive:
@@ -379,7 +377,7 @@ class MainApp(piarm.PiArm, tk.Tk):
                 self.groupBox.select_set(0)
                 self.groupBox.activate(0)
                 self.groupSelected = groupName
-            with open(path+"/.Temp/"+groupName + ".txt", "w") as file:
+            with open(Root_Dir+"/.Temp/"+groupName + ".txt", "w") as file:
                 self.log.info(groupName + ' temperary file created')
 
     def deleteGroup(self):
@@ -389,14 +387,14 @@ class MainApp(piarm.PiArm, tk.Tk):
         if self.groupBox.size():
             index = self.groupBox.index('active')
             self.groupBox.delete(index)
-            os.remove(path +'/.Temp/'+self.groupSelected+'.txt')
+            os.remove(Root_Dir +'/.Temp/'+self.groupSelected+'.txt')
             self.commandBox.delete(0, 'end')
             size = self.groupBox.size()
             if size:
                 self.groupSelected = self.groupBox.get('0')
                 self.groupBox.select_set(0)
                 self.groupBox.activate(0)
-                file = open(path+'/.Temp/'+ self.groupSelected +'.txt', 'r')
+                file = open(Root_Dir+'/.Temp/'+ self.groupSelected +'.txt', 'r')
                 for line in file:
                     stripLine = line.strip()
                     self.commandBox.insert(0,stripLine)
@@ -414,10 +412,13 @@ class MainApp(piarm.PiArm, tk.Tk):
             for ID in range(0, 6):
                 cmd = ("ID:" + str(ID+1) +' P' + (self.posEntry[ID].get()) + ",T" + (self.timeEntry[ID].get())+'  ')
                 cmdList.append(cmd)
-            cmdList.append('Time:' + str(self.delayEntry.get()))
+            if str(self.delayEntry.get()) == '':
+                cmdList.append('Time:' + '1000')
+            else:
+                cmdList.append('Time:' + str(self.delayEntry.get()))
             self.commandBox.insert('end',''.join(cmdList))
 
-            with open(path+'/.Temp/' + self.groupSelected +'.txt', 'a') as file:
+            with open(Root_Dir+'/.Temp/' + self.groupSelected +'.txt', 'a') as file:
                 file.write(''.join(cmdList)+'\n')
         else:
             tk.messagebox.showerror('Group Error','Group Name Not Selected..!!')
@@ -430,7 +431,7 @@ class MainApp(piarm.PiArm, tk.Tk):
         if item and self.groupSelected:
             self.commandBox.delete(item)
             cmd_List = self.commandBox.get(0, 'end')
-            with open(path +"/.Temp/"+self.groupSelected+'.txt', 'w') as file:
+            with open(Root_Dir +"/.Temp/"+self.groupSelected+'.txt', 'w') as file:
                 for value in cmd_List:
                     file.write(value + '\n')
         else:
@@ -446,12 +447,15 @@ class MainApp(piarm.PiArm, tk.Tk):
             for ID in range(0, 6):
                 cmd = ("ID:" + str(ID+1) +' P' + (self.posEntry[ID].get()) + ",T" + (self.timeEntry[ID].get())+'  ')
                 cmdList.append(cmd)
-            cmdList.append('Time:' + str(self.delayEntry.get()))
+            if str(self.delayEntry.get()) == '':
+                cmdList.append('Time:' + '1000')
+            else:
+                cmdList.append('Time:' + str(self.delayEntry.get()))
 
             position = self.commandBox.curselection()
             self.commandBox.insert(position,''.join(cmdList))
             cmd_List = self.commandBox.get(0, 'end')
-            with open(path+"/.Temp/"+self.groupSelected+'.txt', 'w') as file:
+            with open(Root_Dir+"/.Temp/"+self.groupSelected+'.txt', 'w') as file:
                 for value in cmd_List:
                     file.write(value + '\n')
 
@@ -523,7 +527,10 @@ class MainApp(piarm.PiArm, tk.Tk):
                 tk.messagebox.showerror('Error','Fields cannot be empty')
                 break
         if cmdList:
-            cmdList.append('Time:' + str(self.delayEntry.get()))
+            if str(self.delayEntry.get()) == '0':
+                cmdList.append('Time:' + '1000')
+            else:
+                cmdList.append('Time:' + str(self.delayEntry.get()))
             value = self.commandBox.curselection()[0]
             self.commandBox.delete(value)
             self.commandBox.insert(value,''.join(cmdList))
@@ -585,7 +592,7 @@ class MainApp(piarm.PiArm, tk.Tk):
         '''
         This funciton import the group and its commands
         '''
-        file_path = tk.filedialog.askopenfilename(initialdir = path)
+        file_path = filedialog.askopenfilename(initialdir = Root_Dir)
         line_index = 0
         if file_path:
             file_name = file_path.split('/')
@@ -596,7 +603,7 @@ class MainApp(piarm.PiArm, tk.Tk):
                     return False
                 
             file = open(file_path, 'r')
-            shutil.copy2(file_path, path + '/.Temp/' + group_Name[0] + '.txt' )
+            shutil.copy2(file_path, Root_Dir + '/.Temp/' + group_Name[0] + '.txt' )
             self.groupBox.insert('end', group_Name[0])
             if self.groupBox.size() == 1:
                 self.groupBox.select_set(0)
@@ -613,7 +620,7 @@ class MainApp(piarm.PiArm, tk.Tk):
         This funciton exports the group in .txt format
         '''
         if self.groupBox.size():
-            with open(path + '/Export Files/'+ self.groupSelected +'.txt', 'w') as file:
+            with open(Root_Dir + '/Export Files/'+ self.groupSelected +'.txt', 'w') as file:
                 size = self.commandBox.size()
                 if size:
                     for index in range(0, size):
@@ -627,9 +634,9 @@ class MainApp(piarm.PiArm, tk.Tk):
         
     
     def rightFrame_Contents(self):
-        """
+        '''
         This function creates right frame contents
-        """
+        '''
         LINE = [
             (130,  70, 180, 70, 'SteelBlue2', 30),  (110,  20, 110, 100,  'gray30', 50),
             (180,  70, 260, 70, 'gray30', 50),      (260,  70, 310,  70, 'SteelBlue2', 30),
@@ -689,7 +696,8 @@ class MainApp(piarm.PiArm, tk.Tk):
             self.timeEntry.append(entry)
 
         logoButton = tk.Button(self.bodyCanvas, image=logo, height = 40, width = 130,
-                               bg='white', bd=0, highlightthickness=0, fg='white')
+                               bg='white', bd=0, highlightthickness=0, fg='white', 
+                               state='disabled')
         logoButton.place(x=10, y=300)
 
         self.camButton = tk.Button(self.bodyCanvas,text='Camera',command = self.camera,bg='gray80',highlightthickness=0)
@@ -734,7 +742,9 @@ class MainApp(piarm.PiArm, tk.Tk):
         This funciton validate delay entry value
         '''
         try:
-            if int(new_value) >= 0 and int(new_value) <= 3000:
+            if str(new_value) == '':
+                return True 
+            elif int(new_value) >= 0 and int(new_value) <= 3000:
                 return True
             else:
                 self.bell()
@@ -790,7 +800,7 @@ class MainApp(piarm.PiArm, tk.Tk):
                 self.commandBox.delete(0, 'end')
                 self.groupSelected = selectedGroup
             
-                file = open(path+'/.Temp/'+ self.groupSelected +'.txt', 'r')
+                file = open(Root_Dir+'/.Temp/'+ self.groupSelected +'.txt', 'r')
                 for line in file:
                     stripLine = line.strip()
                     self.commandBox.insert(0,stripLine)
@@ -859,7 +869,9 @@ class MainApp(piarm.PiArm, tk.Tk):
         self.click.place(x=725,y=160)
 
     def startPreview(self, arg):
-        """ Start Preview of Camera """
+        ''' 
+        Start Preview of Camera
+        '''
         self.cameraMode = arg
         label = tk.Label(self.camFrame, text="",font=("helvetica", 15), bg='black')
         label.place(x=250, y=350)
@@ -891,16 +903,18 @@ class MainApp(piarm.PiArm, tk.Tk):
             label.after(4000, label.place_forget)
 
     def camClick(self):
-        """ Click Photos and Videos """
+        '''
+        Click Photos and Videos
+        '''
         if(self.cameraMode == "Picture"):
-            self.camera.capture(path + '/Gallery/Photos/' + 'img_' +
+            self.camera.capture(Root_Dir + '/Gallery/Photos/' + 'img_' +
                                 time.strftime('%d%m%Y_')+time.strftime('%H%M%S')
                                 + '.jpg')
         elif (self.cameraMode == "Video") and self.Fl_VideoRecord == False:
             self.click.config(text="Record", fg="red")
             self.back.config(state="disable")
             self.Fl_VideoRecord = True
-            self.camera.start_recording(path + '/Gallery/Videos/' + 'vid_' +
+            self.camera.start_recording(Root_Dir + '/Gallery/Videos/' + 'vid_' +
                                         time.strftime('%d%m%Y_')+
                                         time.strftime('%H%M%S') + '.h264')
         elif self.Fl_VideoRecord == True:
@@ -941,11 +955,11 @@ logo = None
 img = None
 MAX_VALUE = 1023
 
-path = os.path.dirname(os.path.realpath(__file__))
+Root_Dir = os.path.dirname(os.path.realpath(__file__))
 
-if os.path.exists(path + '/.Temp'):
-    shutil.rmtree(path + '/.Temp')
-os.mkdir( path + '/.Temp')
+if os.path.exists(Root_Dir + '/.Temp'):
+    shutil.rmtree(Root_Dir + '/.Temp')
+os.mkdir(Root_Dir + '/.Temp')
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 

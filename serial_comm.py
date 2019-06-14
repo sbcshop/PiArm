@@ -7,18 +7,19 @@ http://sb-components.co.uk
 '''
 
 import serial
-import threading
 import logging
+import threading
 from tkinter import messagebox
 
 class SerialComm(object):
-    """ Low level serial operations """
+    '''
+    Low level serial operations
+    '''
     log = logging.getLogger('piarm.serial.SerialComm')
-    # Default timeout for serial reading(seconds)
+    # Default timeout for serial reading(se              0000000000000000000000000000000conds)
     timeout = 5
 
     def __init__(self, handlerNotification=None, *args, **kwargs):
-        """ Constructor """
         self.alive = False
         self.timeout = 0.01
         self._dataRecieved = False
@@ -31,7 +32,9 @@ class SerialComm(object):
         self.handlerNotification = handlerNotification
 
     def connect(self, commPort, baud = 115200):
-        """ Connects to the device """
+        '''
+        Connects to the Comm Port 
+        '''
         try:
             self.serial = serial.Serial(port=commPort,baudrate=baud,timeout=self.timeout)
             self.alive = True
@@ -44,13 +47,18 @@ class SerialComm(object):
             messagebox.showerror("Port Error", "Couldn't Open Port..!!")
 
     def disconnect(self):
-        """ Stops read thread, waits for it to exit cleanly and close serial port """
+        '''
+        Stops read thread, waits for it to exit cleanly and close serial port
+        '''
         self.alive = False
         self.rxThread.join()
         self.serial.close()
         self.log.info('PiArm Disconnected Succesfully..!!')
 
     def _handleLineRead(self, line, checkResponse=True):
+        '''
+        Handle serially received data
+        '''
         if self._responseEvent and not self._responseEvent.is_set():
             self._response = line
             if not checkResponse:
@@ -64,11 +72,12 @@ class SerialComm(object):
                 # No more chars for this notification
                 #self.log.debug('notification: %s', self._notification)
                 self.log.debug('notification: Serial Device Connected')
-                #self.handlerNotification(self._notification)
                 self._notification = []
 
     def _readLoop(self):
-        """ Read thread main loop """
+        '''
+        Read thread main loop
+        '''
         try:
             while self.alive:
                 data = self.serial.read(1)
@@ -88,7 +97,9 @@ class SerialComm(object):
                 pass
 
     def write(self, data, waitForResponse=True, timeout= 1, byteCount= 0):
-        """ Write data to serial port """
+        '''
+        Write data to serial port
+        '''
         with self._txLock:
             if waitForResponse:
                 self._response = []
