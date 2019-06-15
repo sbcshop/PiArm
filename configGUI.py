@@ -140,29 +140,29 @@ class MainApp(piarm.PiArm, tk.Tk):
                                      bg="gray90",font = self.label_font, bd=2,
                                      highlightthickness=0,
                                      command=self.close_Robot)
-        self.closeButton.pack(padx=30,side="right")
+        self.closeButton.pack(padx=15,side="right")
 
         self.manual_button=tk.Button(self.top_frame,text="Manual",fg="black",
                                bg="gray90",font = self.label_font,bd=2,
                                highlightthickness=0, command = self.manualButton)
-        self.manual_button.pack(padx = 20, side="right")
+        self.manual_button.pack(padx = 15, side="right")
 
         self.about_button=tk.Button(self.top_frame,text="About Us",fg="black",
                                bg="gray90",font = self.label_font,bd=2,
                                highlightthickness=0,command=self.aboutButton)
-        self.about_button.pack(padx = 20,side="right")
+        self.about_button.pack(padx = 15,side="right")
         
         self.param_button=tk.Button(self.top_frame,text="Parameters",fg="black",
                                     bg="gray90",font = self.label_font, bd=2,
                                     highlightthickness=0,
                                     command=self.parameterButton)
-        self.param_button.pack(padx = 20,side="right")
+        self.param_button.pack(padx = 15,side="right")
 
         self.operate_button=tk.Button(self.top_frame,text="Operation", fg="black",
                                  bg="gray90",font = self.label_font, bd=2,
                                  highlightthickness=0,
                                  command=self.operateButton)
-        self.operate_button.pack(padx=10,side="right")
+        self.operate_button.pack(padx=15,side="right")
 
         
     def leftframe_contents(self):
