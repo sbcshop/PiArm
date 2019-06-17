@@ -59,7 +59,7 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 
 **PiArm Control Software**
 
-<a href="https://www.youtube.com/watch?v=jwRVcIw8pus" target="_blank">
+<a href="https://youtu.be/KLsC8npit24" target="_blank">
 <img src="https://cdn.shopify.com/s/files/1/1217/2104/files/vlcsnap-2019-04-30-15h44m01s9_1024x1024.png?v=1556619752" alt="PiArm control tutorial video" width="800" />
 </a>
 
