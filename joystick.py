@@ -86,7 +86,6 @@ class Joystick_Controller(object):
                     self.button_status[0] = 0
                     self.button_status[1] = 0
 
-            # print(self.button_status)
             for button, status in self.button_status.items():
                 if status:
                     #  Move UP
@@ -179,6 +178,5 @@ if __name__ == "__main__":
         pass
         for ID in range(1, 7):
             robot.servoWrite(ID, 500, 1500)
-        # for ID in range(1, 5):
-        #     robot.torqueServo(ID, 0)
+        
         
