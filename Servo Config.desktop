@@ -5,4 +5,4 @@ Name=Servo Config
 Comment=PiArm Servo Configuration
 Exec=/usr/bin/python3 /home/pi/PiArm/configGUI.py
 Icon=/home/pi/PiArm/Images/servo_config.png
-Terminal=true
+Terminal=false
