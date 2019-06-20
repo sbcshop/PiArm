@@ -52,9 +52,13 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 
 # PiArm Tutorial links
 
+
 **Servo Config**
 
 <a href="https://youtu.be/GZJyWnjzaiw" target="_blank"><img src="https://cdn.shopify.com/s/files/1/1217/2104/files/piarm-banner_1024x1024.jpg?v=1556623276" alt="PiArm servo config tutorial video" width="800" /></a>
+
+
+
 
 
 **PiArm Control Software**
