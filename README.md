@@ -36,10 +36,7 @@ One of the variants of PiArm has a LCD mounted on its chest. You can configure t
    ```
    sudo python3 lcd_conf.py 7 0
    ```
-   Note: 
-            
-         i. Only two display configuration sizes are available 5 and 7 inch.
-         ii. The Rotation can be 0, 90, 180, and 270 degree only.
+   Note: Only two display configuration sizes are available 5 and 7 inch and the rotation can be 0, 90, 180, and 270 degree only.
          
 After you enter this command, your system will ask you for reboot. Enter 'y' and reboot your Pi.
 
