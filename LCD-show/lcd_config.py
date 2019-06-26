@@ -101,3 +101,5 @@ class LCD_conf:
 if __name__ == '__main__':
     lcd = LCD_conf()
     lcd.write_file()
+	
+	
