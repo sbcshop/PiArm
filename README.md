@@ -26,29 +26,27 @@ PiArm is a Raspberry Pi based DIY robotic arm outfitted with 6-axis digital comp
 One of the variants of PiArm has a LCD mounted on its chest. You can configure this screen using few simple steps.
 
 **Steps for LCD configuration**
-1. Open terminal and go to the PiArm directory and type
+1. Open terminal and go to the 'LCD-show' directory inside 'PiArm' directory with:
    ```
-   cd LCD-show
-   chmod +x LCD4-show LCD-hdmi
-   ```
-
-2. Now you would require to rotate your screen to the viuewing angle. Write
-
-   ```
-   ./LCD4-show 180
+   cd /PiArm/LCD-show
    ```
 
+2. Run 'lcd_conf.py' file as superuser with display size as first arg and rotation angle as second:
+
+   ```
+   sudo python3 lcd_conf.py 7 0
+   ```
+   Note: i. Only two display configuration sizes are available 5 and 7 inch.
+         ii. The Rotation can be 0, 90, 180, and 270 degree only.
+         
 After you enter this command, your system will ask you for reboot. Enter 'y' and reboot your Pi.
 
 3. While your system is rebooting, you will have to connect the HDMI and MicroUSB Cable.
 
-Note: In case you see your screen resolutions distorted, you just have to press the on/off button the the LCD screen at its back. This will restore its resolution then.
-
-   If you wish to return back to the HDMI, enter
-
-   ```./LCD-hdmi```
+Note: In case you see your screen resolutions distorted, you just have to press the on/off button the the LCD screen at its back. This will restore its resolution.
 
 <img src="https://sb-components.co.uk/assets/images/bg/terminal.png" width="800">
+
 
 # PiArm Tutorial links
 
