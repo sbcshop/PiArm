@@ -50,11 +50,13 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 Ultrasonic sensor can be used for PiArm movement on object detection. For using ultrasonic sensor with PiArm follow below steps:
 
 1. Open Terminal and go to the PiArm directory:
+   ```
    cd PiArm
-
+   ```
 2. Run 'sensor.py':
+   ```
    python3 sensor.py
-
+   ```
    Note: Use 'ultrasonic' class for measuring distance, 'example_ultrasonic' class can be used for operating PiArm by changing the commands accordingly.
    
 # PiArm Tutorial links
