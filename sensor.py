@@ -78,6 +78,9 @@ class example_ultrasonic:
                         ]
 
     def distance_compare(self):
+        '''
+        compare distance and return object detection status
+        '''
         distance = self.usonic.distance_check()
         print(distance)
         if distance <= self.min_dist:
@@ -86,6 +89,9 @@ class example_ultrasonic:
             return False
 
     def move_piarm(self):
+        '''
+        move PiArm if ditance is in given minimum distance
+        '''
         if self.distance_compare():
             print('changing PiArm position')
             for command in self.commands:
