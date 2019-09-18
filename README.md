@@ -22,7 +22,7 @@ PiArm is a Raspberry Pi based DIY robotic arm outfitted with 6-axis digital comp
 5. You can also move these 2 icons to your desktop for your convinience.
 
 <p align="center">
-<img src="Images/PiArmDesktop.PNG" width="800">
+<img src="Images/PiArmDesktop.png" width="800">
 </p>
 
 # PiArm with LCD
@@ -48,7 +48,7 @@ After you enter this command, your system will ask you for reboot. Enter 'y' and
 Note: In case you see your screen resolutions distorted, you just have to press the on/off button the the LCD screen at its back. This will restore its resolution.
 
 <p align="center">
-<img src="Images/Terminal.PNG" width="800">
+<img src="Images/Terminal.png" width="800">
 </p>
 
 # PiArm with ultrsonic
@@ -70,7 +70,7 @@ Ultrasonic sensor can be used for PiArm movement on object detection. For using 
 **Servo Config**
 
 <p align="center">
-<a href="https://youtu.be/GZJyWnjzaiw" target="_blank"><img src="Images/PiArmConfig.PNG" alt="PiArm servo config tutorial video" width="800" /></a></p>
+<a href="https://youtu.be/GZJyWnjzaiw" target="_blank"><img src="Images/PiArmConfig.png" alt="PiArm servo config tutorial video" width="800" /></a></p>
 
 
 **PiArm Control Software**
