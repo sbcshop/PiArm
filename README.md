@@ -53,7 +53,7 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 <img src="Images/Terminal.png" width="800">
 </p>
 
-# PiArm with ultrsonic
+# PiArm with ultrsonic sensor
 Ultrasonic sensor can be used for PiArm movement on object detection. For using ultrasonic sensor with PiArm follow below steps:
 
 1. Open Terminal and go to the PiArm directory:
