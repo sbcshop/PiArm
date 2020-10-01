@@ -19,7 +19,7 @@ PiArm is a Raspberry Pi based DIY robotic arm outfitted with 6-axis digital comp
    
    Kindly make sure that Serial Communication is enabled and serial console is disabled in the Raspberry Pi configuration.
 
-4. Click on the 'Servo Config' shortcut icon to configure your motor, or if you wish to give movements to PiArm or control it, click on the 'PiArm' shortcut icon.
+4. Click on the 'Servo Config' shortcut icon to configure your motor, or if you wish to give movements to PiArm or if you control it, click on the 'PiArm' shortcut icon.
 
 5. You can also move these 2 icons to your desktop for your convinience.
 
@@ -27,7 +27,7 @@ PiArm is a Raspberry Pi based DIY robotic arm outfitted with 6-axis digital comp
 <img src="Images/PiArmDesktop.png" width="800">
 </p>
 
-# PiArm with LCD
+# PiArm with LCD Configuration
 One of the variants of PiArm has a LCD mounted on its chest. You can configure this screen using few simple steps.
 
 **Steps for LCD configuration**
@@ -53,7 +53,7 @@ Note: In case you see your screen resolutions distorted, you just have to press 
 <img src="Images/Terminal.png" width="800">
 </p>
 
-# PiArm with ultrsonic
+# PiArm with ultrsonic sensor
 Ultrasonic sensor can be used for PiArm movement on object detection. For using ultrasonic sensor with PiArm follow below steps:
 
 1. Open Terminal and go to the PiArm directory:
